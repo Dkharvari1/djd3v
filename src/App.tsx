@@ -250,7 +250,7 @@ function App() {
 
       <article className="profile-card">
         <header className="cover">
-          <img src="/cover.jpg" alt="DJ D3V cover" />
+          <img src={`${import.meta.env.BASE_URL}cover.jpg`} alt="DJ D3V cover" />
           <div className="cover-overlay" />
 
           <button
@@ -269,7 +269,10 @@ function App() {
           <div className="profile-top-row">
             <div className="profile-picture-wrap">
               <div className="profile-picture">
-                <img src="./profile.png" alt="DJ D3V profile" />
+                <img
+                  src={`${import.meta.env.BASE_URL}profile.png`}
+                  alt="DJ D3V profile"
+                />
               </div>
               {/* <span className="status-dot" aria-label="Available for bookings" /> */}
             </div>
