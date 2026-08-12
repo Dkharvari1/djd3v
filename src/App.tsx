@@ -6,6 +6,7 @@ import emailjs from "@emailjs/browser";
 
 import {
   FaArrowRight,
+  FaAddressCard,
   FaCalendarCheck,
   FaEnvelope,
   FaInstagram,
@@ -225,6 +226,38 @@ function App() {
     }
   };
 
+
+  const handleSaveContact = () => {
+    const website = window.location.href;
+    const vCard = [
+      "BEGIN:VCARD",
+      "VERSION:3.0",
+      "FN:DJ D3V",
+      "N:D3V;DJ;;;",
+      "ORG:DJ D3V",
+      "TITLE:DJ",
+      "TEL;TYPE=CELL:+18475320317",
+      "EMAIL;TYPE=INTERNET:devkharvari@gmail.com",
+      `URL:${website}`,
+      "NOTE:Chicago-based open format DJ",
+      "END:VCARD",
+    ].join("\r\n");
+
+    const blob = new Blob([vCard], { type: "text/vcard;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+
+    link.href = url;
+    link.download = "DJ-D3V.vcf";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    window.setTimeout(() => {
+      URL.revokeObjectURL(url);
+    }, 1000);
+  };
+
   const handleShare = async () => {
     const shareData = {
       title: "DJ D3V",
@@ -250,7 +283,7 @@ function App() {
 
       <article className="profile-card">
         <header className="cover">
-          <img src={`${import.meta.env.BASE_URL}cover.jpg`} alt="DJ D3V cover" />
+          <img src="/cover.jpg" alt="DJ D3V cover" />
           <div className="cover-overlay" />
 
           <button
@@ -269,10 +302,7 @@ function App() {
           <div className="profile-top-row">
             <div className="profile-picture-wrap">
               <div className="profile-picture">
-                <img
-                  src={`${import.meta.env.BASE_URL}profile.png`}
-                  alt="DJ D3V profile"
-                />
+                <img src="./profile.png" alt="DJ D3V profile" />
               </div>
               {/* <span className="status-dot" aria-label="Available for bookings" /> */}
             </div>
@@ -324,6 +354,15 @@ function App() {
                 <span>Contact</span>
               </button>
             </div>
+
+            <button
+              type="button"
+              className="save-contact-btn"
+              onClick={handleSaveContact}
+            >
+              <FaAddressCard />
+              <span>Save Contact</span>
+            </button>
           </div>
         </section>
 
